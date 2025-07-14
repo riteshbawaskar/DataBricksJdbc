@@ -44,6 +44,13 @@
                     <options>
                         <option>--add-opens=java.base/java.nio=ALL-UNNAMED</option>
                         <option>--add-opens=java.base/sun.nio.ch=ALL-UNNAMED</option>
+                        <option>--add-opens=java.base/sun.misc=ALL-UNNAMED</option>
+                        <option>--add-opens=java.base/java.lang=ALL-UNNAMED</option>
+                        <option>--add-opens=java.base/java.lang.reflect=ALL-UNNAMED</option>
+                        <option>--add-opens=java.base/java.io=ALL-UNNAMED</option>
+                        <option>--add-opens=java.base/java.util=ALL-UNNAMED</option>
+                        <option>--add-exports=java.base/sun.nio.ch=ALL-UNNAMED</option>
+                        <option>--add-exports=java.base/sun.misc=ALL-UNNAMED</option>
                     </options>
                 </configuration>
             </plugin>
