@@ -20,7 +20,7 @@
         <dependency>
             <groupId>com.databricks</groupId>
             <artifactId>databricks-jdbc</artifactId>
-            <version>2.6.36</version>
+            <version>2.6.34</version>
         </dependency>
     </dependencies>
     
@@ -33,6 +33,18 @@
                 <configuration>
                     <source>21</source>
                     <target>21</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>DatabricksJDBCExample</mainClass>
+                    <options>
+                        <option>--add-opens=java.base/java.nio=ALL-UNNAMED</option>
+                        <option>--add-opens=java.base/sun.nio.ch=ALL-UNNAMED</option>
+                    </options>
                 </configuration>
             </plugin>
         </plugins>
