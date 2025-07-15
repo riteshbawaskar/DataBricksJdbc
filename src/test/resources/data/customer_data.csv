@@ -1,0 +1,6 @@
+Control ID,Customer Name,Email Address,Phone Number,Registration Date,Account Status,Credit Limit,Last Transaction Date
+12345,John Doe,john.doe@email.com,1234567890,15-Jan-24,Active,5000.00,10-Jan-24
+67890,Jane Smith,jane.smith@email.com,0987654321,20-Feb-24,Active,7500.50,15-Feb-24
+11111,Bob Johnson,bob.johnson@email.com,1111111111,01-Mar-24,Inactive,3000.00,25-Feb-24
+22222,Alice Brown,alice.brown@email.com,2222222222,10-Mar-24,Active,10000.00,05-Mar-24
+33333,Charlie Wilson,charlie.wilson@email.com,3333333333,25-Mar-24,Active,2500.75,20-Mar-24

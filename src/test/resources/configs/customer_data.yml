@@ -1,0 +1,89 @@
+processName: "customer_data_pipeline"
+testDate: "2024-01-15"
+
+# CSV to Bronze Table Validation
+csvToBronzeValidation:
+  csvFilePath: "src/test/resources/data/customer_data.csv"
+  bronzeTableName: "bronze.customer_data"
+
+  # Column mappings: CSV column name -> Bronze table column name
+  columnMappings:
+    "Control ID": "control_id"
+    "Customer Name": "customer_name"
+    "Email Address": "email_address"
+    "Phone Number": "phone_number"
+    "Registration Date": "registration_date"
+    "Account Status": "account_status"
+    "Credit Limit": "credit_limit"
+    "Last Transaction Date": "last_transaction_date"
+
+  # SQL query to fetch bronze table data (use {testDate} placeholder)
+  bronzeQuery: |
+    SELECT control_id, customer_name, email_address, phone_number,
+           registration_date, account_status, credit_limit, last_transaction_date
+    FROM bronze.customer_data
+    WHERE process_date = '{testDate}'
+    ORDER BY control_id
+
+# Bronze to Silver Table Validation
+bronzeToSilverValidation:
+  bronzeTableName: "bronze.customer_data"
+  silverTableName: "silver.customer_data"
+
+  # Column mappings and transformation rules
+  columnMappings:
+    "control_id":
+      silverColumn: "control_id"
+      transformationRule: "PAD_LEFT_ZERO_8" # Prepend '0' if length < 8
+    "customer_name":
+      silverColumn: "customer_name"
+      transformationRule: "DIRECT_COMPARE" # Direct comparison
+    "email_address":
+      silverColumn: "email_address"
+      transformationRule: "DIRECT_COMPARE"
+    "phone_number":
+      silverColumn: "phone_number"
+      transformationRule: "PAD_LEFT_ZERO_8"
+    "registration_date":
+      silverColumn: "registration_date"
+      transformationRule: "DATE_FORMAT_DD_MON_YY_TO_DD_MM_YY" # Convert dd-mon-yy to dd/mm/yy
+    "account_status":
+      silverColumn: "account_status"
+      transformationRule: "DIRECT_COMPARE"
+    "credit_limit":
+      silverColumn: "credit_limit"
+      transformationRule: "DIRECT_COMPARE"
+    "last_transaction_date":
+      silverColumn: "last_transaction_date"
+      transformationRule: "DATE_FORMAT_DD_MON_YY_TO_DD_MM_YY"
+
+  # SQL queries
+  bronzeQuery: |
+    SELECT control_id, customer_name, email_address, phone_number,
+           registration_date, account_status, credit_limit, last_transaction_date
+    FROM bronze.customer_data
+    WHERE process_date = '{testDate}'
+    ORDER BY control_id
+
+  silverQuery: |
+    SELECT control_id, customer_name, email_address, phone_number,
+           registration_date, account_status, credit_limit, last_transaction_date
+    FROM silver.customer_data
+    WHERE process_date = '{testDate}'
+    ORDER BY control_id
+
+# Validation Rules
+validationRules:
+  # Tolerance for numeric comparisons
+  numericTolerance: 0.01
+
+  # Date format configurations
+  dateFormats:
+    input: "dd-MMM-yy"
+    output: "dd/MM/yy"
+
+  # Field padding configuration
+  paddingConfig:
+    padChar: "0"
+    padDirection: "LEFT"
+    targetLength: 8
