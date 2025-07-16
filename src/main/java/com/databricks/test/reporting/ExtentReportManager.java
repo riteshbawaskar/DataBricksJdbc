@@ -97,9 +97,9 @@ public class ExtentReportManager {
 
         // Add errors if any
         if (result.getErrors() != null && !result.getErrors().isEmpty()) {
-            test.log(Status.ERROR, "Errors Found:");
+            test.log(Status.FAIL, "Errors Found:");
             for (String error : result.getErrors()) {
-                test.log(Status.ERROR, error);
+                test.log(Status.FAIL, error);
             }
         }
 
